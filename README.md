@@ -17,3 +17,14 @@ npm install
 POST /words → Inserta una palabra
 
 GET /words → Lista todas las palabras
+
+PUT /words/:id → Actualiza la palabra con ese id
+
+DELETE /words/:id → Elimina la palabra con ese id
+
+El cuerpo que espera estos endpoints como PUT y POST es
+```bash
+{
+    "word":"{value}"
+}
+```

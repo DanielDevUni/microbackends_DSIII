@@ -29,3 +29,34 @@ router.get("/words", async (req, res) => {
 });
 
 export default router;
+
+// Actualizar palabra por id
+router.put("/words/:id", async (req, res) => {
+  const { id } = req.params;
+  const { word } = req.body;
+
+  if (!word || typeof word !== "string") {
+    return res.status(400).json({ error: "Debe ser una palabra válida" });
+  }
+
+  const { error } = await supabase
+    .from("words")
+    .update({ word })
+    .eq("id", id);
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.json({ message: "Palabra actualizada" });
+});
+
+// Eliminar palabra por id
+router.delete("/words/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const { error } = await supabase
+    .from("words")
+    .delete()
+    .eq("id", id);
+
+  if (error) return res.status(500).json({ error: error.message });
+  res.json({ message: "Palabra eliminada" });
+});
